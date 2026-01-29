@@ -31,6 +31,4 @@ export { setInterval } from '#app/compat/interval';
 export { definePageMeta } from '../node_modules/nuxt/dist/pages/runtime/composables';
 export { defineLazyHydrationComponent } from '#app/composables/lazy-hydration';
 export { useCameraManager, useGraph, useLoader, useLoop, useRendererManager, useTres, useTresContext, useTresContextProvider, extend as extendTres, TresObject } from '@tresjs/core';
-export { extractBindingPosition, hasSetter, pick, useAnimations, useEnvironment, useFBO, useFBX, useGLTF, useGLTFExporter, useIntersect, useMask, useProgress, useSVG, useSurfaceSampler, useTexture, useTextures, useVideoTexture } from '@tresjs/cientos';
-export { useEffect, useEffectPmndrs } from '@tresjs/post-processing';
 export { useNuxtDevTools } from '../node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools';

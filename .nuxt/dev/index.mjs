@@ -1019,7 +1019,7 @@ const _Dema6SI4ECkjZtdf7gNRIH5R7qa7tAcc2sXy3psTgw = (function(nitro) {
 
 const rootDir = "C:/Users/blueb/Downloads/Portfolio";
 
-const appHead = {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"}],"link":[{"rel":"icon","type":"image/x-icon","href":"data:,"},{"rel":"shortcut icon","type":"image/x-icon","href":"data:,"}],"style":[],"script":[],"noscript":[],"title":"GLASS LAB®"};
+const appHead = {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"}],"link":[{"rel":"icon","type":"image/x-icon","href":"data:,"},{"rel":"shortcut icon","type":"image/x-icon","href":"data:,"}],"style":[],"script":[],"noscript":[],"title":"LABAIG®"};
 
 const appRootTag = "div";
 
