@@ -6,127 +6,13 @@
     </header>
 
     <main class="relative z-10 px-6 md:px-12 max-w-5xl mx-auto">
-      <section class="min-h-[calc(108dvh-64px)] flex items-center justify-center hero-section relative left-1/2 -translate-x-1/2 w-screen">
-        <!-- Fondo Hydra solo para el hero -->
-        <div v-if="mounted" id="hydra-hero"></div>
-        <span class="relative z-[10] text-white text-sm font-semibold md:text-base">SOPLA EL VIDRIO</span>
-      </section>
 
       <!-- Wrapper que inicia justo donde empiezan las columnas -->
       <div class="relative left-1/2 -translate-x-1/2 w-screen">
         <!-- hydra-bg solo se renderiza en cliente para evitar mismatches en la hidratación -->
         <div v-if="mounted" id="hydra-bg"></div>
 
-        <section class="mt-0 mb-0 relative left-1/2 -translate-x-1/2 w-screen px-0 md:px-0">
-          <div class="columns-1 md:columns-2 gap-x-0 relative z-[1]">
-            <div class="break-inside-avoid">
-              <img
-                src="/images/furnace.webp"
-                alt="cristal 1"
-                loading="lazy"
-                class="w-full h-auto block clickable-image"
-                @click.stop="openImage(0, '/images/furnace.webp', 'cristal 1')"
-              />
-            </div>
-            <div class="break-inside-avoid">
-              <img
-                src="/images/bodies.webp"
-                alt="cristal 2"
-                loading="lazy"
-                class="w-full h-auto block clickable-image"
-                @click.stop="openImage(1, '/images/bodies.webp', 'cristal 2')"
-              />
-            </div>
-            <div class="break-inside-avoid">
-              <img
-                src="/images/mouth.webp"
-                alt="warm"
-                loading="lazy"
-                class="w-full h-auto block clickable-image"
-                @click.stop="openImage(2, '/images/mouth.webp', 'warm')"
-              />
-            </div>
-            <div class="break-inside-avoid">
-              <img
-                src="/images/blobs.webp"
-                alt="warm 2"
-                loading="lazy"
-                class="w-full h-auto block clickable-image"
-                @click.stop="openImage(3, '/images/blobs.webp', 'warm 2')"
-              />
-            </div>
-          </div>
-        </section>
-
-        <!-- Texto intermedio a ancho completo: NEVER FELT -->
-        <section class="relative left-1/2 -translate-x-1/2 w-screen py-24 px-0">
-          <div class="full-width-title" aria-hidden="false">
-            <h2 class="never-felt" role="heading" aria-level="2">
-              NEVER FELT
-            </h2>
-          </div>
-        </section>
-
-        <section class="mt-8 mb-0 relative left-1/2 -translate-x-1/2 w-screen px-0 md:px-0">
-          <div class="columns-1 md:columns-2 gap-x-12 relative z-[1]">
-            <div class="break-inside-avoid p-8 pt-20">
-              <img
-                src="/images/corazon.webp"
-                alt="corazon"
-                loading="lazy"
-                class="w-full h-auto block clickable-image"
-                @click.stop="openImage(4, '/images/corazon.webp', 'corazon')"
-              />
-            </div>
-            <div class="break-inside-avoid p-10 pb-10">
-              <img
-                src="/images/gota.webp"
-                alt="gota"
-                loading="lazy"
-                class="w-full h-auto block clickable-image"
-                @click.stop="openImage(5, '/images/gota.webp', 'gota')"
-              />
-            </div>
-            <div class="break-inside-avoid p-8 pt-24">
-              <img
-                src="/images/naturaleza.jpg"
-                alt="naturaleza"
-                loading="lazy"
-                class="w-full h-auto block clickable-image"
-                @click.stop="openImage(6, '/images/naturaleza.webp', 'naturaleza')"
-              />
-            </div>
-            <div class="break-inside-avoid p-8 pt-16">
-              <img
-                src="/images/tubo.webp"
-                alt="tubo"
-                loading="lazy"
-                class="w-full h-auto block clickable-image"
-                @click.stop="openImage(7, '/images/tubo.webp', 'tubo')"
-              />
-            </div>
-            <div class="break-inside-avoid p-10 pt-20">
-              <img
-                src="/images/aura.webp"
-                alt="aura"
-                loading="lazy"
-                class="w-full h-auto block clickable-image"
-                @click.stop="openImage(8, '/images/aura.webp', 'aura')"
-              />
-            </div>
-            <div class="break-inside-avoid p-10 pt-24">
-              <img
-                src="/images/chips.gif"
-                alt="chip"
-                loading="lazy"
-                class="w-full h-auto block clickable-image"
-                @click.stop="openImage(9, '/images/chips.gif', 'chip')"
-              />
-            </div>
-          </div>
-        </section>
-      </div>
-
+  </div>
       <!-- Lightbox overlay (pantalla completa) -->
       <transition name="lightbox-fade">
         <div
