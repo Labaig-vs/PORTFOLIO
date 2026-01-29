@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  srcDir: 'app/',  // ← AÑADIDO: Indica que el código está en la carpeta app/
   devtools: { enabled: true },
   modules: ['@nuxtjs/tailwindcss', '@tresjs/nuxt'],
   devServer: {
