@@ -455,12 +455,12 @@ function animate() {
     try {
       const mats = m.userData.mats
       if (mats) {
-        const frontBaseline = 0.48
-        const sideBaselineRight = 0.30
-        const sideBaselineLeft = 0.30
-        const sideBaselineTop = 0.30
-        const sideBaselineBottom= 0.28
-        const backBaseline = 0.24
+        const frontBaseline = 0.7
+        const sideBaselineRight = 0.7
+        const sideBaselineLeft = 0.70
+        const sideBaselineTop = 0.70
+        const sideBaselineBottom= 0.7
+        const backBaseline = 0.74
         const f = m.userData.currentOpacityFactor
         if (mats.front) { mats.front.opacity = THREE.MathUtils.clamp(frontBaseline + (1.0 - frontBaseline) * f, 0.02, 1.0); mats.front.needsUpdate = true }
         if (mats.right) { mats.right.opacity = THREE.MathUtils.clamp(sideBaselineRight + (1.0 - sideBaselineRight) * f, 0.02, 1.0); mats.right.needsUpdate = true }
@@ -698,19 +698,13 @@ watch(() => props.projects, (nv, ov) => {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  white-space: nowrap;
-  color: rgba(255,255,255,0.98);                /* texto claramente legible por defecto */
-  -webkit-text-stroke: 0.9px rgba(0,0,0,0.72);  /* trazo oscuro (Chromium/Safari) */
+  color: rgba(0, 0, 0, 0.98);                /* texto claramente legible por defecto */
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   z-index: 1;
   pointer-events: none;
+  mix-blend-mode: difference;
   /* fallback shadow para navegadores sin text-stroke (ej. Firefox) */
-  text-shadow:
-    -1px -1px 0 rgba(0,0,0,0.72),
-     1px -1px 0 rgba(0,0,0,0.72),
-     1px  1px 0 rgba(0,0,0,0.72),
-    -1px  1px 0 rgba(0,0,0,0.72);
 }
 
 /* CAPA DE INVERSIÓN (arriba): aquí ocurre la mezcla difference */
@@ -723,7 +717,7 @@ watch(() => props.projects, (nv, ov) => {
   white-space: nowrap;
   color: #ffffff;               /* base para la operación difference */
   mix-blend-mode: difference;   /* invierte colores donde se superpone */
-  opacity: 0.94;                /* permitir que el fallback asome ligeramente si la mezcla empata */
+  opacity: 1;                /* permitir que el fallback asome ligeramente si la mezcla empata */
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   z-index: 2;

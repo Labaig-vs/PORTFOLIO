@@ -1,1 +1,1 @@
-export { default } from "file:///C:/Users/usuario/OneDrive/Desktop/Proyectos%20ESD/4%C2%BA/Proyectos/Glass%20Lab/Web/Proyecto_Cristal/node_modules/@nuxt/vite-builder/dist/runtime/vite-node.mjs"
+export { default } from "file:///C:/Users/blueb/Downloads/Portfolio/node_modules/@nuxt/vite-builder/dist/runtime/vite-node.mjs"

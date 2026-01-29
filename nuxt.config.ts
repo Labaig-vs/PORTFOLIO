@@ -2,6 +2,11 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@nuxtjs/tailwindcss', '@tresjs/nuxt'],
+  devServer: {
+    host: 'localhost',
+    port: 3000,
+    open: true
+  },
   app: {
     head: {
       title: 'GLASS LAB®',

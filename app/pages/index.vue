@@ -1,29 +1,25 @@
 <template>
-  <div class="relative min-h-screen w-screen bg-black text-white overflow-hidden">
+  <div class="relative min-h-screen w-screen bg-black text-white  overflow-hidden">
     <Transition name="splash-fade">
-      <div v-if="showSplash" class="fixed inset-0 z-50 flex items-center justify-center">
-        <!-- contenedor full-screen para Spline -->
-        <div ref="splineWrap" class="w-full h-full relative">
-          <!-- indicador mínimo (spinner) -->
-          <div
-            v-show="!splineReady"
-            class="absolute inset-0 z-20 flex items-center justify-center"
-            role="status"
-            aria-live="polite"
+      <div v-if="showSplash" class="fixed inset-0 z-50 flex items-center justify-center bg-black">
+        <!-- Contenedor de animación de texto -->
+        <div class="relative w-full h-full overflow-hidden flex items-center justify-center">
+          <!-- Textos animados -->
+          <div 
+            v-for="(item, index) in textItems" 
+            :key="item.id"
+            class="absolute text-animation"
+            :style="{ animationDelay: `${index * 0.1}s` }"
           >
-            <div class="w-10 h-10 border-4 border-white/20 rounded-full animate-spin" aria-hidden="true"></div>
-            <span class="sr-only">Cargando escena…</span>
+            ARDE LABAIG
           </div>
-
-          <!-- Spline viewer: se inyecta en cliente y se referencia por ref -->
-          <div ref="splineContainer" class="w-full h-full z-10"></div>
         </div>
       </div>
     </Transition>
 
     <!-- header fuera del transition: siempre se renderiza -->
     <header class="fixed top-2.5 left-0 right-0 px-6 md:px-10 py-5 flex items-center justify-between select-none z-10">
-      <a href="/?nosplash=1" class="text-xs md:text-[1.3em] tracking-[0.06em] font-bold uppercase">GLASS LAB®</a>
+      <a href="/?nosplash=1" class="text-xs md:text-[1.3em] tracking-[0.06em] font-bold uppercase">LABAIG®</a>
     </header>
 
     <Transition name="main-fade">
@@ -53,15 +49,11 @@
 <script setup>
 // IMPORT CORREGIDA (ruta relativa desde app/pages/index.vue hasta components/GlassStack.vue)
 import GlassStack from '../../components/GlassStack.vue'
-import { ref, onMounted, onUnmounted, nextTick, computed } from 'vue'
+import { ref, onMounted, nextTick, computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 /* CONFIG */
-const SCENE_URL = 'https://prod.spline.design/fGpdQJwt7Rw4Zugj/scene.splinecode'
-const SPLINE_VIEWER_SRC = 'https://unpkg.com/@splinetool/viewer@1.10.86/build/spline-viewer.js'
-const SPLASH_VISIBLE_AFTER_LOAD_MS = 8000   // contador tras spline ready
-const MAX_SPLASH_WAIT = 9000                // fallback máximo esperando a la escena
-const CANVAS_POLL_INTERVAL = 200
+const SPLASH_DURATION_MS = 3500  // Duración total del splash (4 segundos)
 
 /* Rutas / estado */
 const route = useRoute()
@@ -74,40 +66,26 @@ const isHomeRoute = computed(() => {
 })
 
 const showSplash = ref(true)
-const splineReady = ref(false)
-const splineContainer = ref(null)
-const splineWrap = ref(null)
 const glassStack = ref(null)
 
+// Crear muchos items de texto para la animación continua
+const textItems = ref(
+  Array.from({ length: 50 }, (_, i) => ({ id: i }))
+)
+
 const projects = ref([
-  //{ id: 'glass-roman',     title: 'Vidrio Romano',    imageSmall: '/images/reloj-small.webp', image: '/images/reloj.webp', century: 'S. I–III', href: '../glass/cristal-ciencia' },
-  { id: 'LA CREACIÓN',  title: 'LA CREACIÓN',  imageSmall: '/images/warm.webp', image: '/images/warm.webp', century: 'S. V–XV', href: '/glass/artesania-vs-industria' },
-  //{ id: 'FRAGILIDAD',  title: 'FRAGILIDAD', imageSmall: '/images/bulet.webp', image: '/images/bullet.webp', century: 'S. XIII–XVII', href: '/glass/fragilidad-vs-resistencia' },
-  { id: 'ESCAPARATES',title: 'ESCAPARATES',imageSmall: '/images/reloj-small.webp', image: '/images/adds.png', century: 'S. XVIII', href: '/glass/escaparate' },
-  { id: 'ESPEJOS', title: 'ESPEJOS',  imageSmall: '/images/reloj-small.webp', image: '/images/mirror.jpg', century: 'S. XIX', href: '/glass/espejo' },
-  { id: 'PANTALLAS',    title: 'PANTALLAS',   imageSmall: '/images/reloj-small.webp', image: '/images/screen.png', century: 'S. XX', href: '/glass/Pantallas' },
+  { id: 'CLUSTER',  title: 'CLUSTER',  imageSmall: '/images/Cluster/cluster.png', image: '/images/Cluster/cluster.png', century: 'S. V–XV', href: '/glass/cluster' },
+  { id: 'TESTIGOS',  title: 'TESTIGOS',  imageSmall: '/images/Testigos/poster.png', image: '/images/Testigos/poster.png', century: 'S. V–XV', href: '/glass/cluster' },
+  { id: 'GLASS LAB',  title: 'GLASS LAB',  imageSmall: '/images/chips2.png', image: '/images/chips2.png', century: 'S. V–XV', href: '/glass/cluster' },
+  { id: 'FITZPLEASURE',  title: 'FITZPLEASURE',  imageSmall: '/images/FitzPleasure/FitzPleasure.png', image: '/images/FitzPleasure/FitzPleasure.png', century: 'S. V–XV', href: '/glass/cluster' },
+  { id: 'ZEST',  title: 'ZEST',  imageSmall: '/images/ZEST/Logo3.jpg', image: '/images/ZEST/Logo3.jpg', century: 'S. V–XV', href: '/glass/cluster' },
+  { id: 'ARDE',  title: 'ARDE',  imageSmall: '/images/ARDE/antorcha1.jpg', image: '/images/ARDE/antorcha1.jpg', century: 'S. V–XV', href: '/glass/cluster' },
+  { id: 'ARDOSA',  title: 'ARDOSA',  imageSmall: '/images/ARDOSA/mockup-vino3.jpg', image: '/images/ARDOSA/mockup-vino3.jpg', century: 'S. V–XV', href: '/glass/cluster' },
+  { id: 'EUR',  title: 'EUR',  imageSmall: '/images/EUR/eur1.jpg', image: '/images/EUR/eur1.jpg', century: 'S. V–XV', href: '/glass/cluster' },
+  { id: 'ARCHIVE',  title: 'ARCHIVE',  imageSmall: '/images/Revista Helvetica/Helvetica-revista_Javier-Labaig_DG3B_1 - copia.jpg', image: '/images/Revista Helvetica/Helvetica-revista_Javier-Labaig_DG3B_1 - copia.jpg', century: 'S. V–XV', href: '/glass/cluster' },
+
+
 ])
-
-/* gestión recursos y timers */
-let scriptEl = null
-let splineEl = null
-let pollInterval = null
-let observer = null
-let forcedHideTimer = null
-let splashHideTimer = null
-
-/* marca spline listo y arranca el contador */
-function markSplineReady(reason = '') {
-  if (splineReady.value) return
-  splineReady.value = true
-  console.log('[splash] spline ready:', reason)
-
-  if (forcedHideTimer) { clearTimeout(forcedHideTimer); forcedHideTimer = null }
-
-  splashHideTimer = setTimeout(() => {
-    finalizeSplashHide()
-  }, SPLASH_VISIBLE_AFTER_LOAD_MS)
-}
 
 /* cerrar splash y forzar resize del GlassStack */
 function finalizeSplashHide() {
@@ -120,62 +98,9 @@ function finalizeSplashHide() {
       }
     } catch (e) { /* noop */ }
   })
-  cleanup()
 }
 
-/* limpiezas */
-function cleanup() {
-  if (pollInterval) { clearInterval(pollInterval); pollInterval = null }
-  if (observer) { observer.disconnect(); observer = null }
-  if (forcedHideTimer) { clearTimeout(forcedHideTimer); forcedHideTimer = null }
-  if (splashHideTimer) { clearTimeout(splashHideTimer); splashHideTimer = null }
-
-  try {
-    if (splineEl && splineEl.removeEventListener) {
-      const eventNames = ['load', 'loaded', 'ready', 'scene-loaded', 'spline-ready', 'load-complete']
-      eventNames.forEach((ev) => splineEl.removeEventListener(ev, handleGenericEvent))
-    }
-  } catch (e) {}
-  splineEl = null
-}
-
-/* listener genérico */
-function handleGenericEvent(e) {
-  markSplineReady(e?.type || 'event')
-}
-
-/* detecta canvas dentro del componente spline */
-function detectCanvasInSpline() {
-  try {
-    if (!splineEl) return false
-    const plainCanvas = splineEl.querySelector && splineEl.querySelector('canvas')
-    if (plainCanvas) {
-      const r = plainCanvas.getBoundingClientRect()
-      if (r && r.width > 8 && r.height > 8) {
-        markSplineReady('canvas-detected')
-        return true
-      }
-    }
-    if (splineEl.shadowRoot && splineEl.shadowRoot.querySelector) {
-      const shadowCanvas = splineEl.shadowRoot.querySelector('canvas')
-      if (shadowCanvas) {
-        const r = shadowCanvas.getBoundingClientRect()
-        if (r && r.width > 8 && r.height > 8) {
-          markSplineReady('shadow-canvas-detected')
-          return true
-        }
-      }
-    }
-  } catch (e) { /* ignore */ }
-  return false
-}
-
-/* aseguramos que cleanup se ejecute al desmontar */
-onUnmounted(() => {
-  cleanup()
-})
-
-/* montaje (cliente-only) */
+/* montaje */
 onMounted(async () => {
   await nextTick()
   if (typeof window === 'undefined') return
@@ -189,94 +114,52 @@ onMounted(async () => {
   const hasVisited = (() => {
     try { return sessionStorage.getItem('visited') === '1' } catch { return false }
   })()
+  
   if (noSplash || hasVisited) {
     showSplash.value = false
     return
   }
 
-  const container = splineContainer.value
-  if (!container) {
-    console.error('[splash] splineContainer no encontrado.')
-    showSplash.value = false
-    return
-  }
-
-  try {
-    if (!document.querySelector(`script[data-spline-viewer]`)) {
-      scriptEl = document.createElement('script')
-      scriptEl.type = 'module'
-      scriptEl.src = SPLINE_VIEWER_SRC
-      scriptEl.setAttribute('data-spline-viewer', '1')
-      scriptEl.async = true
-      const loadPromise = new Promise((resolve, reject) => {
-        scriptEl.addEventListener('load', () => resolve(true), { once: true })
-        scriptEl.addEventListener('error', (err) => reject(err), { once: true })
-      })
-      document.head.appendChild(scriptEl)
-      await loadPromise
-      console.log('[splash] spline viewer script cargado.')
-    } else {
-      console.log('[splash] spline viewer script ya presente.')
-    }
-  } catch (err) {
-    console.error('[splash] error cargando spline-viewer script', err)
+  // Iniciar el timer para ocultar el splash
+  setTimeout(() => {
     finalizeSplashHide()
-    return
-  }
-
-  try {
-    splineEl = document.createElement('spline-viewer')
-    splineEl.setAttribute('url', SCENE_URL)
-    splineEl.setAttribute('background', 'transparent')
-    container.innerHTML = ''
-    container.appendChild(splineEl)
-  } catch (err) {
-    console.error('[splash] error creando <spline-viewer>:', err)
-    finalizeSplashHide()
-    return
-  }
-
-  try {
-    const eventNames = ['load', 'loaded', 'ready', 'scene-loaded', 'spline-ready', 'load-complete']
-    eventNames.forEach((ev) => splineEl.addEventListener(ev, handleGenericEvent, { once: true, passive: true }))
-  } catch (e) {}
-
-  try {
-    observer = new MutationObserver(() => {
-      if (detectCanvasInSpline()) {
-        observer.disconnect()
-      }
-    })
-    observer.observe(splineEl, { childList: true, subtree: true })
-  } catch (e) {}
-
-  pollInterval = setInterval(() => {
-    if (detectCanvasInSpline()) {
-      clearInterval(pollInterval)
-      pollInterval = null
-    }
-  }, CANVAS_POLL_INTERVAL)
-
-  forcedHideTimer = setTimeout(() => {
-    if (!splineReady.value) {
-      console.warn('[splash] timeout máximo alcanzado; cerrando splash (fallback).')
-      finalizeSplashHide()
-    }
-  }, MAX_SPLASH_WAIT)
+  }, SPLASH_DURATION_MS)
 })
 </script>
 
 <style scoped>
-/* Transiciones */
+/* Transiciones del splash */
 .splash-fade-enter-active { transition: none; }
-.splash-fade-leave-active { transition: opacity .6s ease-in-out; }
+.splash-fade-leave-active { transition: opacity 3s ease-in-out; }
 .splash-fade-leave-to { opacity: 0; }
-.main-fade-enter-active { transition: opacity .6s ease-in-out .6s; }
+.main-fade-enter-active { transition: opacity 2s ease-in-out 2s; }
 .main-fade-enter-from { opacity: 0; }
 
-/* Reglas específicas del componente */
-canvas { display: block; width: 100%; height: 100%; }
-[spline-viewer] { width: 100%; height: 100%; display: block; }
+/* Animación de texto */
+.text-animation {
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.01em;
+  animation: riseUp 9s linear forwards;
+  opacity: 0;
+  line-height: 1;
+  color: white;
+}
+
+@keyframes riseUp {
+  0% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+  5% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(-220vh);
+  }
+}
 
 /* util sr-only para accesibilidad */
 .sr-only {
